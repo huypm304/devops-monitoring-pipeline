@@ -28,7 +28,7 @@ resource "local_file" "ssh_key_file" {
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-0c7217cdde317cfec" 
+  ami           = "ami-0b1957355e1e1d3e6" 
   instance_type = "t3.micro"              
   subnet_id     = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
