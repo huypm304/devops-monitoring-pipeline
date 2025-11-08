@@ -38,10 +38,10 @@ resource "aws_instance" "app_server" {
   user_data = <<-EOF
               #!/bin/bash
               yum update -y
-              amazon-linux-extras install docker -y
-              service docker start
+              dnf install docker -y
+              systemctl start docker
               usermod -a -G docker ec2-user
-              yum install git -y
+              dnf install git -y
               EOF
 
   tags = {
