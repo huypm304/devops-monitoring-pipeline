@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  my_dashboard:
+    image: 586265537624.dkr.ecr.ap-southeast-1.amazonaws.com/devops-project-repo:latest
+    ports:
+      - "8001:8001"
+    restart: always
+
+#Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: always
+
+#Grafana
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    restart: always
