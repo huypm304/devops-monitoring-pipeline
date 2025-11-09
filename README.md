@@ -1,56 +1,63 @@
-# DevOps Monitoring Pipeline
+# End-to-End DevOps Observability Pipeline
+A Fully Automated CI/CD and Monitoring System on AWS using Terraform, GitHub Actions, Docker, and Grafana_
+## 1. Project Objective 
 
-**Automated CI/CD for Python-based System Monitoring Dashboard on AWS EC2**
+This repository documents a production-ready, fully automated CI/CD pipeline. The core objective is to showcase a **closed-loop, GitOps-driven Observability Stack** implementation on **AWS EC2**.
 
----
-
-## Project Objective
-- Build a **fully automated CI/CD pipeline** from GitHub to AWS EC2.  
-- Automatically deploy Python monitoring dashboard on every code push.  
-- Showcase **DevOps competencies**: IaC, CI/CD, containerization, cloud automation.
+This project demonstrates expertise in: **IaC, Full-Stack CI/CD, Container Orchestration, and Real-time Monitoring/Alerting.**
 
 ---
 
-## Technologies
-| Domain | Tech |
-| --- | --- |
-| CI/CD | GitHub Actions |
-| Infrastructure | AWS (EC2, ECR, VPC, IAM, Security Group) |
-| IaC | Terraform |
-| Containerization | Docker |
-| Application | Python (Flask, psutil, prometheus-client) |
+## 2. Core Technologies 
+
+| Domain | Technology |
+| :--- | :--- |
+| **CI/CD & Automation** | **GitHub Actions** (CI/CD), **Docker Compose** |
+| **Infrastructure as Code** | **Terraform** |
+| **Observability Stack** | **Prometheus** (Scraping/Storage), **Grafana** (Visualization/Alerting) |
+| **Cloud Provider** | **AWS** (EC2, ECR, VPC, IAM, Security Group) |
+| **Application** | **Python** (Flask, psutil, prometheus-client) |
 
 ---
 
-## Architecture & Flow
-1. **Developer Pushes Code** → `dev` branch.  
-2. **CI Job (GitHub Actions)**  
-   - Build Python app into **Docker image**.  
-   - Push image to **AWS ECR**.  
-3. **CD Job (GitHub Actions)**  
-   - SSH into EC2.  
-   - Pull latest Docker image.  
-   - Stop & replace running container with new version.  
+## 3. Architecture & GitOps Workflow
 
-**Outcome:** Live application updated automatically within minutes after push.
+
+
+This entire system is managed via a single `git push` command, ensuring continuous delivery and self-monitoring.
+
+1.  **Provisioning (IaC):**
+    **Terraform** provisions the entire AWS infrastructure, including an EC2 host bootstrapped via `user_data` to install **Docker** and **Docker Compose**. All security groups and IAM roles are configured for isolated network access.
+
+2.  **CI (Integration):**
+    A **GitHub Actions** workflow triggers on push. It containerizes the Python application, versions the artifact, and pushes it to **Amazon ECR**.
+
+3.  **CD (Deployment):**
+    The **Deploy** job automatically SSH-es into the EC2 host and executes a Docker Compose sequence, ensuring **zero downtime for monitoring services**:
+    * **Pulls** the latest application image.
+    * **Restarts** only the application container (`my-dashboard`).
+    * **Prometheus** immediately scrapes the new application's metrics (`/metrics`).
+
+4.  **Observability Loop:**
+    The deployed application runs alongside its dedicated monitoring stack, allowing for real-time visualization in Grafana and **automated alerting** if CPU or Memory thresholds are exceeded.
 
 ---
 
-## Key Skills Highlighted
-- **Infrastructure as Code:** Terraform provisioning AWS EC2 + ECR.  
-- **CI/CD Pipelines:** GitHub Actions for automated build & deployment.  
-- **Cloud Deployment:** EC2 containerized app, IAM & Security best practices.  
-- **Docker:** Containerized Python app for consistent deployments.  
+## 4. Screenshots
+
+#### Deployed Observability Stack (Grafana)
+*Live Grafana dashboard visualizing real-time CPU & Memory metrics (scraped from the Python app) and ready for alert rule configuration.*
+
+![Grafana Dashboard](docs/image.png)
+---
+
+#### Automated CI/CD Pipeline (GitHub Actions)
+*A successful end-to-end workflow run, showcasing the automated CI (Build) and CD (Deploy) jobs.*
+
+![CI/CD Pipeline](docs/image-1.png)
 
 ---
 
-## Screenshot
-Dashboard running live on AWS EC2
+#### Dashboard running live on AWS EC2
 
-<img width="1795" height="1036" alt="image" src="https://github.com/user-attachments/assets/9b75102e-9160-4e0d-9985-baea65639e11" />
-
-CI/CD Pipeline
-
-<img width="1795" height="1036" alt="image" src="https://github.com/user-attachments/assets/04fded5c-a345-4bb8-b76d-84ac4e84d594" />
-
-
+![Custom App Dashboard](docs/image-2.png)
