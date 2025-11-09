@@ -35,13 +35,17 @@ resource "aws_instance" "app_server" {
   key_name      = aws_key_pair.key_pair.key_name
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
-  user_data = <<-EOF
+ user_data = <<-EOF
               #!/bin/bash
               yum update -y
               dnf install docker -y
+              dnf install git -y
+              
+              curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+              chmod +x /usr/local/bin/docker-compose
+              
               systemctl start docker
               usermod -a -G docker ec2-user
-              dnf install git -y
               EOF
 
   tags = {
