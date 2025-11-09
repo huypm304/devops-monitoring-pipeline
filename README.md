@@ -4,7 +4,7 @@ A Fully Automated CI/CD and Monitoring System on AWS using Terraform, GitHub Act
 
 This repository documents a production-ready, fully automated CI/CD pipeline. The core objective is to showcase a **closed-loop, GitOps-driven Observability Stack** implementation on **AWS EC2**.
 
-This project demonstrates expertise in: **IaC, Full-Stack CI/CD, Container Orchestration, and Real-time Monitoring/Alerting.**
+This project demonstrates expertise in: **IaC, CI/CD pipeline, Container Orchestration, and Real-time Monitoring/Alerting.**
 
 ---
 
