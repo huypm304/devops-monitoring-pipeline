@@ -46,6 +46,7 @@ resource "aws_instance" "app_server" {
               
               systemctl start docker
               usermod -a -G docker ec2-user
+              git clone https://github.com/huypm304/devops-monitoring-pipeline.git
               EOF
 
   tags = {
