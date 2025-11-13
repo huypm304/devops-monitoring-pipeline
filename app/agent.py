@@ -18,7 +18,7 @@ def index():
     
 
     message = None
-    if cpu_percent > 80 or mem_percent > 80:
+    if cpu_percent > 70 or mem_percent > 70:
         message = "HIGH CPU or memory!"
 
     return render_template("index.html", 
